@@ -23,7 +23,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         //增加顶上滚动栏
-        CGRect sliderF = CGRectMake(0, 0, self.bounds.size.width, 50) ;
+        CGRect sliderF = CGRectMake(0, 0, self.bounds.size.width, 44) ;
         self.sliderView = [[DDSliderView alloc]initWithFrame:sliderF itemArray:items ];
         [self addSubview:self.sliderView];
         //底部的滚动视图
@@ -58,6 +58,7 @@
     __weak typeof(self) weakSelf = self ;
     self.sliderView.whenItemTapped = ^(NSUInteger index){
         weakSelf.scrollView.contentOffset=CGPointMake(w *index, 0);
+        weakSelf.currentIndex = index ;
     };
 }
 
@@ -66,6 +67,11 @@
     CGFloat index = scrollView.contentOffset.x /self.bounds.size.width ;
     self.sliderView.index = index ;
 }
-
+//作为接口提供给外界用的
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger index = scrollView.contentOffset.x /self.bounds.size.width ;
+    self.currentIndex = index ;
+}
 
 @end

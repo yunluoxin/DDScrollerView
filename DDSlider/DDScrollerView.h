@@ -10,6 +10,10 @@
 #import "UIView+DD.h"
 @interface DDScrollerView : UIView
 /**
+ *  当前选中块的索引
+ */
+@property (nonatomic, assign)NSInteger currentIndex ;
+/**
  *  构造方法产生一个滚动View
  *
  *  @param frame         这个大View的Frame
